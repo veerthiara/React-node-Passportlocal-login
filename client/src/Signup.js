@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom';
 import {
   HelpBlock,
   FormGroup,
@@ -53,34 +54,34 @@ class Signup extends Component {
   }
 
   handleConfirmationSubmit = async event => {
-    {this.props.submitsignup(this.state.username, this.state.password)}
+    {this.props.submitsignup(this.state.username, this.state.password, this.props.history)}
     event.preventDefault();
 
   }
 
   renderConfirmationForm() {
     return (
-      <form onSubmit={this.handleConfirmationSubmit}>
-        <FormGroup controlId="confirmationCode" bsSize="large">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
-            autoFocus
-            type="tel"
-            value={this.state.confirmationCode}
-            onChange={this.handleChange}
+        <form onSubmit={this.handleConfirmationSubmit}>
+          <FormGroup controlId="confirmationCode" bsSize="large">
+            <ControlLabel>Confirmation Code</ControlLabel>
+            <FormControl
+              autoFocus
+              type="tel"
+              value={this.state.confirmationCode}
+              onChange={this.handleChange}
+            />
+            <HelpBlock>Please check your email for the code.</HelpBlock>
+          </FormGroup>
+          <LoaderButton
+            block
+            bsSize="large"
+            disabled={!this.validateConfirmationForm()}
+            type="submit"
+            isLoading={this.state.isLoading}
+            text="Verify"
+            loadingText="Verifying…"
           />
-          <HelpBlock>Please check your email for the code.</HelpBlock>
-        </FormGroup>
-        <LoaderButton
-          block
-          bsSize="large"
-          disabled={!this.validateConfirmationForm()}
-          type="submit"
-          isLoading={this.state.isLoading}
-          text="Verify"
-          loadingText="Verifying…"
-        />
-      </form>
+        </form>
     );
   }
 
@@ -127,10 +128,12 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="Signup">
-        {this.state.newUser === null
-          ? this.renderForm()
-          : this.renderConfirmationForm()}
+      <div id="fullBg">
+        <div className="Signup">
+          {this.state.newUser === null
+            ? this.renderForm()
+            : this.renderConfirmationForm()}
+        </div>
       </div>
     );
   }
@@ -142,4 +145,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps, actions)(Signup);
+export default connect(mapStateToProps, actions)(withRouter(Signup));

@@ -7,10 +7,17 @@
     margin: 0 auto;
     max-width: 320px;
   }
-}
-
-.Signup form span.help-block {
-  font-size: 14px;
-  padding-bottom: 10px;
-  color: #999;
+  #fullBg {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    background: url('https://s22.postimg.org/rwc2acgj5/image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
 }

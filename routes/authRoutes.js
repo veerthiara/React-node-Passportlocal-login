@@ -3,11 +3,10 @@ const passport = require('passport');
 module.exports = app => {
 
   app.post('/api/login', passport.authenticate('local-login', {
-            //successRedirect : '/', // redirect to the secure profile section
+            //successRedirect : '/profile', // redirect to the secure profile section
             //failureRedirect : '/Login', // redirect back to the signup page if there is an error
             //failureFlash : true // allow flash messages
-		}),
-        (req, res)=> {
+		}),(req, res)=> {
             console.log("hello");
             res.send(req.user);
             //if (req.body.remember) {
@@ -21,15 +20,14 @@ module.exports = app => {
           //successRedirect : '/profile', // redirect to the secure profile section
           //failureRedirect : '/Login', // redirect back to the signup page if there is an error
           failureFlash : true // allow flash messages
-        }),
-          function(req, res) {
+        }),(req, res) => {
             console.log("singuppart");
+            res.send(req.user);
             //if (req.body.remember) {
               //req.session.cookie.maxAge = 1000 * 60 * 3;
             //} else {
               //req.session.cookie.expires = false;
             //}
-            res.redirect('/');
         });
 
     app.get('/api/logout',(req, res)=>{
